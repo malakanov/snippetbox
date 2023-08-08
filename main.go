@@ -24,11 +24,7 @@ func main() {
 func create(writer http.ResponseWriter, request *http.Request) {
 	if request.Method != "POST" {
 		writer.Header().Set("Allow", "POST")
-		writer.WriteHeader(405)
-		_, err := writer.Write([]byte("Method are not allowed"))
-		if err != nil {
-			log.Fatal(err)
-		}
+		http.Error(writer, "Method not allowed", 405)
 		return
 	}
 
